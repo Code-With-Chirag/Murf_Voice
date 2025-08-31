@@ -4,8 +4,10 @@ import json
 import os
 import sys
 import tempfile
+import base64
 from io import BytesIO
 from qr import generate_qr_png
+from st_copy_to_clipboard import st_copy_to_clipboard
 
 # Configure Streamlit page
 st.set_page_config(
@@ -333,37 +335,24 @@ def main():
                                     file_name="generated_audio.mp3",
                                     mime="audio/mp3"
                                 )
-                            # Shareable link + QR (show whenever we have an audio_url)
+                            # Shareable link + QR
                             st.markdown("### 🔗 Share")
                             
-                            col_share1, col_share2 = st.columns([3, 1])
-                            with col_share1:
+                            # Row for link and copy button
+                            col1, col2 = st.columns([3, 1])
+                            with col1:
                                 st.markdown(f"[Open generated audio link]({audio_url})")
-                            with col_share2:
-                                st.button("📋 Copy Link", key=f"copy-{audio_url}")
-                                st.markdown(
-                                f'''
-                                <script>
-                                function copyToClipboard(text) {{
-                                    navigator.clipboard.writeText(text).then(function() {{
-                                        // Optional: Show a success message or change button text
-                                    }}, function(err) {{
-                                        alert('Could not copy text: ', err);
-                                    }});
-                                }}
-                                const button = window.parent.document.querySelector('[data-testid="stButton"] > button:contains("📋 Copy Link")');
-                                if (button) {{
-                                    button.onclick = function() {{ copyToClipboard('{audio_url}'); }}
-                                }}
-                                </script>
-                                ''',
-                                unsafe_allow_html=True
-                            )
+                            with col2:
+                                st_copy_to_clipboard(audio_url, "📋 Copy Link")
 
+                            # Row for QR code
                             try:
-                                # Use scale=4 as requested for a smaller QR code
                                 qr_png = generate_qr_png(audio_url, scale=4, border=2)
-                                st.image(qr_png, caption="Scan to open audio", use_container_width=False)
+                                st.image(
+                                    qr_png, 
+                                    caption="Right-click to copy image", 
+                                    use_container_width=False
+                                )
                             except Exception as e:
                                 st.warning(f"Could not generate QR code: {e}")
                         else:
