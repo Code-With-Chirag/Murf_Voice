@@ -51,7 +51,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Backend API configuration
-BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = "https://murf-voice-2.onrender.com"
 
 # Voice configurations (matching the backend - Hindi voices)
 # VOICE_MOODS = {
