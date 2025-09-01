@@ -2,7 +2,6 @@
 fastapi
 uvicorn
 python-dotenv
-requests
 pydantic
 python-multipart
 
@@ -10,7 +9,6 @@ python-multipart
 streamlit
 qrcode[pillow]
 st_copy_to_clipboard
-pyshorturl
 Pillow
 murf
 # Murf AI SDK (if using official SDK)
