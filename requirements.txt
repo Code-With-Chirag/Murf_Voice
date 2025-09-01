@@ -1,17 +1,17 @@
 # Backend dependencies
-fastapi>=0.95.0
-uvicorn>=0.21.0
-python-dotenv>=1.0.0
-requests>=2.28.0
-pydantic>=1.10.0
-python-multipart>=0.0.6
+fastapi
+uvicorn
+python-dotenv
+requests
+pydantic
+python-multipart
 
 # Frontend dependencies
-streamlit>=1.24.0
-qrcode[pillow]>=7.4.2
-st_copy_to_clipboard>=0.0.2
-pyshorturl>=0.1.0
-Pillow>=9.5.0
-
+streamlit
+qrcode[pillow]
+st_copy_to_clipboard
+pyshorturl
+Pillow
+murf
 # Murf AI SDK (if using official SDK)
 # murf-ai>=1.0.0  # Uncomment and install if using official SDK
