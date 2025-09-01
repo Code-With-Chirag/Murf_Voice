@@ -54,14 +54,23 @@ st.markdown("""
 BACKEND_URL = "http://localhost:8000"
 
 # Voice configurations (matching the backend - Hindi voices)
+# VOICE_MOODS = {
+#     "Shaan": ['Conversational', 'Promo', 'Calm', 'Sad'],
+#     "Rahul": ['Conversational'],
+#     "Shweta": ['Conversational', 'Promo', 'Calm', 'Sad'],
+#     "Amit": ['Conversational'],
+#     "Kabir": ['Conversational'],
+#     "Ayushi": ['Conversational']
+# }
 VOICE_MOODS = {
-    "Shaan": ['Conversational', 'Promo', 'Calm', 'Sad'],
-    "Rahul": ['Conversational'],
-    "Shweta": ['Conversational', 'Promo', 'Calm', 'Sad'],
-    "Amit": ['Conversational'],
-    "Kabir": ['Conversational'],
-    "Ayushi": ['Conversational']
+    "Shaan": {"moods": ['Conversational', 'Promo', 'Calm', 'Sad']},
+    "Rahul": {"moods": ['Conversational']},
+    "Shweta": {"moods": ['Conversational', 'Promo', 'Calm', 'Sad']},
+    "Amit": {"moods": ['Conversational']},
+    "Kabir": {"moods": ['Conversational']},
+    "Ayushi": {"moods": ['Conversational']}
 }
+
 
 # Language options for translation
 TRANSLATION_LANGUAGES = {
@@ -216,7 +225,13 @@ def main():
         
         with col2:
             # Update moods based on selected voice
-            available_moods = voices.get(selected_voice, {}).get('moods', ['Conversational'])
+            # available_moods = voices.get(selected_voice, {}).get('moods', ['Conversational'])
+            available_moods = (
+                voices.get(selected_voice).get("moods")
+                if isinstance(voices.get(selected_voice), dict)
+                else voices.get(selected_voice, ["Conversational"])
+            )
+
             selected_mood = st.selectbox(
                 "Choose Mood",
                 options=available_moods,
